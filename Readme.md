@@ -34,7 +34,7 @@ The dataset is stored in a comma-separated-value (CSV) file and there are a tota
 
 ## Loading and preprocessing the data
 
-Download, unzip and load data into data frame `data`. 
+Download, unzip and load data into data frame `activity`. 
 
 ```{r}
 setwd("~/Box Sync/Learning/Reproducible Research/Peer_Assignment_1")
@@ -47,17 +47,17 @@ if(!file.exists("getdata-projectfiles-UCI HAR Dataset.zip")) {
 }
 
 data <- read.csv("activity.csv")
+
 ```
-
-
 ## What is mean total number of steps taken per day?
-Sum steps by day, create Histogram, and calculate mean and median.
 
+Sum steps by day, create Histogram, and calculate mean and median.
 ```{r}
 steps_by_day <- aggregate(steps ~ date, data, sum)
 hist(steps_by_day$steps, main = paste("Total Steps Each Day"), col="pink", xlab="Number of Steps")
 ```
 
+![plot of chunk plot1](./Plot/Rplot1.png) 
 
 ```{r}
 rmean <- mean(steps_by_day$steps)
@@ -78,7 +78,7 @@ steps_by_interval <- aggregate(steps ~ interval, data, mean)
 plot(steps_by_interval$interval,steps_by_interval$steps, type="l", xlab="Interval", ylab="Number of Steps",main="Average Number of Steps per Day by Interval")
 ```
 
-
+![plot of chunk unnamed-chunk-3](./Plot/Rplot2.png) 
 
 ```{r}
 max_interval <- steps_by_interval[which.max(steps_by_interval$steps),1]
@@ -112,6 +112,7 @@ hist(steps_by_day$steps, main = paste("Total Steps Each Day"), col="red", xlab="
 legend("topright", c("Imputed", "Non-imputed"), col=c("blue", "red"), lwd=10)
 ```
 
+![plot of chunk unnamed-chunk-6](./Plot/Rplot4.png) 
 
 Calculate new mean and median for imputed data. 
 
@@ -153,3 +154,5 @@ library(lattice)
 
 xyplot(steps_by_interval_i$steps ~ steps_by_interval_i$interval|steps_by_interval_i$dow, main="Average Steps per Day by Interval",xlab="Interval", ylab="Steps",layout=c(1,2), type="l")
 ```
+
+![plot of chunk unnamed-chunk-10](./Plot/Rplot5.png) 
